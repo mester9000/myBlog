@@ -8,8 +8,7 @@ var express         = require("express"),
     methodOverride  = require("method-override"),
     Image      = require("./models/image"),
     Comment         = require("./models/comment"),
-    User            = require("./models/user"),
-    seedDB          = require("./seeds")
+    User            = require("./models/user")
 
 // requiring routes    
 var commentRoutes       = require("./routes/comments"),
@@ -24,7 +23,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-// seedDB();
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
