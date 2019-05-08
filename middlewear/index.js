@@ -1,15 +1,15 @@
 var middlewearObj = {};
-var Campground = require("../models/campground");
+var Image = require("../models/image");
 var Comment = require("../models/comment");
 
-middlewearObj.checkCampgroundOwnership = function(req, res, next){
+middlewearObj.checkImageOwnership = function(req, res, next){
     if(req.isAuthenticated()){
-          Campground.findById(req.params.id, function(err, foundCampground){
+          Image.findById(req.params.id, function(err, foundImage){
        if(err){
-           req.flash("error", "Campground not found");
+           req.flash("error", "Image not found");
            res.redirect("back");
        } else {
-           if(foundCampground.author.id.equals(req.user._id) || req.user.isAdmin){
+           if(foundImage.author.id.equals(req.user._id) || req.user.isAdmin){
           next();
        } else {
            req.flash("error", "You don't have permission to do that");

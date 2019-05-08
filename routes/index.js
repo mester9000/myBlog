@@ -2,7 +2,7 @@ var express     = require("express");
 var router      = express.Router();
 var passport    = require("passport");
 var User        = require("../models/user");
-var Campground  = require("../models/campground");
+var Image  = require("../models/image");
 
 
 // Root route
@@ -35,8 +35,8 @@ router.post("/register", function(req, res){
     return res.render("register", {error: err.message});
         }
        passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Welcome to YelpCamp " + user.username);
-           res.redirect("/campgrounds");
+           req.flash("success", "Welcome to myBlog " + user.username);
+           res.redirect("/images");
        });
    });
 });
@@ -49,7 +49,7 @@ router.get("/login", function(req, res){
 // handling login logic
 router.post("/login", passport.authenticate("local",
 {   
-    successRedirect: "/campgrounds",
+    successRedirect: "/images",
     failureRedirect: "/Login"
     
 }), function(req, res){
@@ -60,7 +60,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res){
    req.logout();
    req.flash("success", "Logged you out!");
-   res.redirect("/campgrounds");
+   res.redirect("/images");
 });
 
 
@@ -73,12 +73,12 @@ router.get("/users/:id", function(req, res){
            req.flash("error", "Something Went Wrong");
           return res.redirect("/");
        }
-       Campground.find().where("author.id").equals(foundUser._id).exec(function(err, campgrounds){
+       Image.find().where("author.id").equals(foundUser._id).exec(function(err, images){
            if(err){
            req.flash("error", "Something Went Wrong");
           return res.redirect("/");
        }
-           res.render("users/show", {user: foundUser, campgrounds: campgrounds});
+           res.render("users/show", {user: foundUser, images: images});
        });
    }) ;
 });

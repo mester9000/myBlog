@@ -6,17 +6,17 @@ var express         = require("express"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
     methodOverride  = require("method-override"),
-    Campground      = require("./models/campground"),
+    Image      = require("./models/image"),
     Comment         = require("./models/comment"),
     User            = require("./models/user"),
     seedDB          = require("./seeds")
 
 // requiring routes    
 var commentRoutes       = require("./routes/comments"),
-    campgroundRoutes    = require("./routes/campgrounds"),
-    indexRoutes          = require("./routes/index")
+    imageRoutes         = require("./routes/images"),
+    indexRoutes         = require("./routes/index")
 
-var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v11";
+var url = process.env.DATABASEURL || "mongodb://omar:asd123@ds153556.mlab.com:53556/myblog";
 mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -47,9 +47,9 @@ app.use(function(req, res, next){
 });
 
 app.use("/", indexRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
-app.use("/campgrounds", campgroundRoutes);
+app.use("/images/:id/comments", commentRoutes);
+app.use("/images", imageRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("The YelpCamp Server Has Started!"); 
+   console.log("The myBlog Server Has Started!"); 
 });
